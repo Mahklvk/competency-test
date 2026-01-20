@@ -20,8 +20,8 @@ class Brand extends Model
 
     public function setNameAttribute($value)
     {
-        $this->attribute['name'] = $value;
-        $this->attribute['slug'] = Str::slug($value);
+        $this->attributes['name'] = $value;
+        $this->attributes['slug'] = Str::slug($value);
     }
 
     public function produks(): HasMany

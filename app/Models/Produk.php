@@ -28,10 +28,10 @@ class Produk extends Model
     public function setNameAttribute($value)
     {
         $this->attributes['name'] = $value;
-        $this->attribues['slug'] = Str::slug($value);
+        $this->attributes['slug'] = Str::slug($value);
     }
 
-    public function brand(): BelongssTo
+    public function brand(): BelongsTo
     {
         return $this->belongsTo(Brand::class, 'brand_id');
     }
