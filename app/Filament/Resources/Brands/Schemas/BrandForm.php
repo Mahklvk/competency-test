@@ -12,8 +12,11 @@ class BrandForm
     {
         return $schema
             ->components([
-                TextInput::make('name')->required()->maxLength(225),
-                FileUpload::make('logo')->image()->directory('Brands')->maxSize(1024)->required(),
+                // ********************************************
+                // **       Create Brand Form               **
+                // *******************************************
+                TextInput::make('name')->required()->maxLength(225), // input for name
+                FileUpload::make('logo')->image()->directory('Brands')->maxSize(1024)->required(), // file upload icon
             ]);
     }
 }
