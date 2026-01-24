@@ -17,6 +17,8 @@ class Produk extends Model
         'name',
         'slug',
         'thumbnail',
+        'photos',
+        'size',
         'about',
         'price',
         'stock',
@@ -43,7 +45,7 @@ class Produk extends Model
 
     public function photos(): HasMany
     {
-        return $this->hasMany(ProdukPhotos::class);
+        return $this->hasMany(ProdukPhoto::class);
     }
 
     public function sizes(): HasMany
