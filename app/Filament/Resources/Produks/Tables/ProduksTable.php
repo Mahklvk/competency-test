@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Produks\Tables;
 
+use App\Models\Produk;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -33,6 +34,13 @@ class ProduksTable
                     ->searchable()
                     ->sortable()
                     ->money('IDR'),
+                TextColumn::make('sizes.size')
+                    ->label('Ukuran')
+                    ->badge()
+                    ->limitList(2),
+                ImageColumn::make('photos.photo')
+                    ->label('Photo')
+                    ->limit(1),
                 TextColumn::make('category_id')
                     ->searchable()
                     ->sortable()
