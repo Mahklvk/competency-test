@@ -15,18 +15,20 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone');
+            $table->string('quantity');
             $table->string('email');
             $table->string('booking_trx_id');
             $table->string('city');
             $table->string('post_code');
             $table->string('proof');
-            $table->unsignedBigInteger('shoe_size');
+            $table->string('produk_size');
             $table->text('address');
             $table->unsignedBigInteger('sub_total_amount');
             $table->unsignedBigInteger('grand_total_amount');
             $table->boolean('is_paid');
             $table->foreignId('produk_id')->constrained()->cascadeOnDelete();
             $table->foreignId('promo_code_id')->nullable()->constrained()->nullOnDelete();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
