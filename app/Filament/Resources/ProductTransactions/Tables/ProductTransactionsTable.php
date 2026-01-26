@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\ProductTransactions\Tables;
 
+use Barryvdh\DomPDF\Facade\Pdf;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -12,6 +14,7 @@ use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
+
 
 class ProductTransactionsTable
 {
@@ -61,6 +64,18 @@ class ProductTransactionsTable
             ])
             ->recordActions([
                 EditAction::make(),
+                Action::make('invoice')
+                    ->label('Invoice PDF')
+                    ->action(function ($record) {
+                    $pdf = Pdf::loadView('pdf.transaction-pdf', [
+                    'trx' => $record->load('produk'),
+                    ]);
+
+                    return response()->streamDownload(
+                        fn () => print($pdf->output()),
+                        'invoice-'.$record->id.'.pdf'
+                    );
+                })
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
