@@ -23,41 +23,49 @@ class ProduksTable
     {
         return $table
             ->columns([
-                ImageColumn::make('thumbnail')
+                ImageColumn::make('thumbnail') // show thumbnail
                     ->searchable(),
-                TextColumn::make('name')
+                    
+                ImageColumn::make('photos.photo') // show photo
+                    ->label('Photo')
+                    ->limit(1),
+
+                TextColumn::make('name') // show nama produk
                     ->label('Nama Produk')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('price')
+
+                TextColumn::make('price') // show price
                     ->label('Harga Produk')
                     ->searchable()
                     ->sortable()
                     ->money('IDR'),
-                TextColumn::make('sizes.size')
+
+                TextColumn::make('sizes.size') // show size 
                     ->label('Ukuran')
                     ->badge()
                     ->limitList(2),
-                ImageColumn::make('photos.photo')
-                    ->label('Photo')
-                    ->limit(1),
-                TextColumn::make('category_id')
+
+                TextColumn::make('category_id') // category
                     ->searchable()
                     ->sortable()
                     ->label('Kategori'),
-                TextColumn::make('brand_id')
+
+                TextColumn::make('brand_id') // brand
                     ->label('Merek')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('stock')
+
+                TextColumn::make('stock') // stock table
                     ->label('Stok')
                     ->searchable()
                     ->sortable(),
-                IconColumn::make('is_popular')
+
+                IconColumn::make('is_popular') // populer ga nih
                     ->label('Populer')
                     ->boolean()
-                    ->trueIcon(Heroicon::OutlinedCheckBadge)
-                    ->falseIcon(Heroicon::OutlinedXMark)
+                    ->trueIcon(Heroicon::OutlinedCheckBadge) // kalo populer  ini
+                    ->falseIcon(Heroicon::OutlinedXMark)  // kalo engga ini tampilin
                     ->searchable()
                     ->sortable(),
 

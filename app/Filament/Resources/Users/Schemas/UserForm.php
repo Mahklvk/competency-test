@@ -12,9 +12,9 @@ class UserForm
     {
         return $schema
             ->components([
-                TextInput::make('name')->required()->maxLength(18),
-                TextInput::make('email')->required()->email()->maxLength(225),
-                TextInput::make('password')->required()->password()
+                TextInput::make('name')->required()->maxLength(18), // form name
+                TextInput::make('email')->required()->email()->maxLength(225), // form email
+                TextInput::make('password')->required()->password() // form password
             ]);
     }
 }

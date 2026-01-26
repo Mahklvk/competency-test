@@ -11,10 +11,11 @@ class PromoCodeForm
     {
         return $schema
             ->components([
-                TextInput::make('code')
+                TextInput::make('code') // input code
                     ->required()
                     ->maxLength(225),
-                TextInput::make('discount_amount')
+                    
+                TextInput::make('discount_amount') // diskon amount
                     ->required()
                     ->prefix('IDR')
             ]);

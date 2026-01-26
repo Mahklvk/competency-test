@@ -18,47 +18,77 @@ class ProdukForm
     {
         return $schema
             ->components([
-                Fieldset::make('Informasi Produk')
+                Fieldset::make('Informasi Produk') // fieldset style
                     ->columnSpanFull()
                     ->columns([
                         'default' => 1,
                         'md' => 2,
                     ])
                     ->schema([
-                        TextInput::make('name')->required()->maxLength(225),
-                        TextInput::make('price')->prefix('IDR')->required()->numeric(),
-                        FileUpload::make('thumbnail')->directory('produk-thumbnail')->image()->imageEditor()->previewAble(true)->required(),
-                        Repeater::make('Photos')->required()
+                        TextInput::make('name') // form name
+                            ->required()
+                            ->maxLength(225),
+
+                        TextInput::make('price') // form price
+                            ->prefix('IDR')
+                            ->required()
+                            ->numeric(),
+
+                        FileUpload::make('thumbnail') // upload for thumbnail
+                            ->directory('produk-thumbnail')
+                            ->image()
+                            ->imageEditor()
+                            ->previewAble(true)
+                            ->required(),
+
+                        Repeater::make('Photos') // repeater itunya biar bisa upload foto banyak
+                            ->required()
                             ->relationship('photos')
                             ->schema([
-                                FileUpload::make('photo')->directory('produk-photos')->image()->imageEditor()->previewAble(true)->columnSpanFull(),
-
+                                FileUpload::make('photo')  // upload poto
+                                    ->directory('produk-photos')
+                                    ->image()
+                                    ->imageEditor()
+                                    ->previewAble(true)
+                                    ->columnSpanFull(),
                             ]),
 
-                        Repeater::make('sizes')->required()
+                        Repeater::make('sizes') // repeater size lagi
+                            ->required()
                             ->relationship('sizes')
                             ->schema([
-                                TextInput::make('size')->required()->maxLength(225),
+                                TextInput::make('size') // input form size
+                                    ->required()
+                                    ->maxLength(225),
                             ]),
 
-                        Fieldset::make('informasi tambahan')->columnSpanFull()
+                        Fieldset::make('informasi tambahan')
+                            ->columnSpanFull()
                             ->columns([
                                 'default' => 1,
                                 'md' => 2,
                             ])
                             ->schema([
-                                Textarea::make('about')->required(),
-                                Toggle::make('is_popular')
+                                Textarea::make('about')->required(), // tentang produk itu
+                                Toggle::make('is_popular') // toggle popular ga nih
                                     ->onIcon(HeroIcon::Fire)
                                     ->onColor('danger')
                                     ->required()
                                     ->inline(false)
                                     ->label('Apakah Popular?'),
-                                Select::make('category_id')->required()
+
+                                Select::make('category_id') // category name
+                                    ->required()
                                     ->relationship('category', 'name'),
-                                Select::make('brand_id')->required()
+
+                                Select::make('brand_id') // brand name
+                                    ->required()
                                     ->relationship('brand', 'name'),
-                                TextInput::make('stock')->required()->prefix('Pcs')->columnSpanFull(),
+
+                                TextInput::make('stock') // stock form
+                                    ->required()
+                                    ->prefix('PCS')
+                                    ->columnSpanFull(),
                             ]),
                     ]),
             ]);

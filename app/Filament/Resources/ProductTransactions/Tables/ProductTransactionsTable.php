@@ -15,74 +15,86 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\TrashedFilter;
 use Filament\Tables\Table;
 
-
 class ProductTransactionsTable
 {
     public static function configure(Table $table): Table
     {
+        // **************************************************
+        // **       Showing Categories Table              **
+        // *************************************************
         return $table
             ->columns([
-                TextColumn::make('name')
-                ->label('Nama Pelanggan')
-                ->sortable()
-                ->searchable(),
-                TextColumn::make('phone')
-                ->label('Nomor Handphone Pelanggan')
-                ->searchable(),
+                TextColumn::make('name') //showing data name
+                    ->label('Nama Pelanggan')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('phone') // showing data phone
+                    ->label('Nomor Handphone Pelanggan')
+                    ->searchable(),
+
                 TextColumn::make('email')
-                ->label('email pelanggan')
-                ->searchable(),
-                TextColumn::make('booking_trx_id')
-                ->label('ID Booking TRX')
-                ->searchable(),
-                TextColumn::make('Produk.name')
-                ->label('Nama Produk')
-                ->searchable(),
-                TextColumn::make('Produk.price')
-                ->label('Harga Produk')
-                ->searchable(),
-                TextColumn::make('quantity')
-                ->label('Jumlah Produk')
-                ->searchable(),
-                TextColumn::make('produk_size')
-                ->label('Ukuran Produk')
-                ->searchable(),
-                TextColumn::make('promoCode.code')
-                ->label('Kode Promo')
-                ->searchable(),
-                TextColumn::make('sub_total_amount')
-                ->label('Total Seluruh Harga')
-                ->searchable(),
-                IconColumn::make('is_paid')
-                ->label('Sudah/Belum Terbayar')
-                ->boolean()
-                ->trueIcon(Heroicon::CheckCircle)
-                ->falseIcon(Heroicon::XMark),
+                    ->label('email pelanggan') // showing data phone
+                    ->searchable(),
+
+                TextColumn::make('booking_trx_id') // showing booking id
+                    ->label('ID Booking TRX')
+                    ->searchable(),
+
+                TextColumn::make('Produk.name') // get relation from produk name
+                    ->label('Nama Produk')
+                    ->searchable(),
+
+                TextColumn::make('Produk.price') // get relation from produk price
+                    ->label('Harga Produk')
+                    ->searchable(),
+
+                TextColumn::make('quantity') // showing quantity data
+                    ->label('Jumlah Produk')
+                    ->searchable(),
+
+                TextColumn::make('produk_size') // showing produk size data
+                    ->label('Ukuran Produk')
+                    ->searchable(),
+
+                TextColumn::make('promoCode.code') // get relation promoCode
+                    ->label('Kode Promo')
+                    ->searchable(),
+
+                TextColumn::make('sub_total_amount') // get sub total amount
+                    ->label('Total Seluruh Harga')
+                    ->searchable(),
+
+                IconColumn::make('is_paid') // showing status 
+                    ->label('Sudah/Belum Terbayar')
+                    ->boolean()
+                    ->trueIcon(Heroicon::CheckCircle)
+                    ->falseIcon(Heroicon::XMark),
             ])
             ->filters([
                 TrashedFilter::make(),
             ])
             ->recordActions([
                 EditAction::make(),
-                Action::make('invoice')
+                Action::make('invoice') // action for export pdf
                     ->label('Invoice PDF')
                     ->action(function ($record) {
-                    $pdf = Pdf::loadView('pdf.transaction-pdf', [
-                    'trx' => $record->load('produk'),
-                    ]);
+                        $pdf = Pdf::loadView('pdf.transaction-pdf', [
+                            'trx' => $record->load('produk'),
+                        ]); // redirect to blade template view
 
-                    return response()->streamDownload(
-                        fn () => print($pdf->output()),
-                        'invoice-'.$record->id.'.pdf'
-                    );
-                })
+                        return response()->streamDownload( // if it redirected, it'll downloaded to pdf format
+                            fn () => print ($pdf->output()),
+                            'invoice-'.$record->id.'.pdf'
+                        );
+                    }),
             ])
             ->toolbarActions([
-                BulkActionGroup::make([
-                    DeleteBulkAction::make(),
-                    ForceDeleteBulkAction::make(),
-                    RestoreBulkAction::make(),
-                ]),
+                    BulkActionGroup::make([
+                        DeleteBulkAction::make(),
+                        ForceDeleteBulkAction::make(),
+                        RestoreBulkAction::make(),
+                    ]),
             ]);
     }
 }

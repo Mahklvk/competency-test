@@ -21,11 +21,11 @@ class UsersTable
     {
         return $table
             ->columns([
-                TextColumn::make('name')
+                TextColumn::make('name') // table nama
                 ->label('Nama pengguna')
                 ->searchable()
                 ->sortable(),
-                TextColumn::make('email')
+                TextColumn::make('email') // table email
                 ->label('Email Pengguna')
                 ->searchable(),
             ])

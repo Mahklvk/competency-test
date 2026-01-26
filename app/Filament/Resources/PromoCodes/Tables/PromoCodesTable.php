@@ -19,19 +19,22 @@ class PromoCodesTable
     {
         return $table
             ->columns([
-                TextColumn::make('code')
+                TextColumn::make('code') // show kode
                     ->searchable()
                     ->label('Kode'),
-                TextColumn::make('discount_amount')
+
+                TextColumn::make('discount_amount') // isi diskonnya
                     ->label('Total Diskon')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('created_at')
+
+                TextColumn::make('created_at') // created at 
                     ->label('Dibuat Tanggal')
                     ->searchable()
                     ->sortable()
                     ->dateTime(timezone: 'Asia/Jakarta'),
-                TextColumn::make('updated_at')
+
+                TextColumn::make('updated_at') // updated at
                     ->label('Diperbarui Tanggal')
                     ->searchable()
                     ->sortable()
