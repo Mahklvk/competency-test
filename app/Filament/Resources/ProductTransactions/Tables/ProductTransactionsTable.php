@@ -76,18 +76,6 @@ class ProductTransactionsTable
             ])
             ->recordActions([
                 EditAction::make(),
-                Action::make('invoice') // action for export pdf
-                    ->label('Invoice PDF')
-                    ->action(function ($record) {
-                        $pdf = Pdf::loadView('pdf.transaction-pdf', [
-                            'trx' => $record->load('produk'),
-                        ]); // redirect to blade template view
-
-                        return response()->streamDownload( // if it redirected, it'll downloaded to pdf format
-                            fn () => print ($pdf->output()),
-                            'invoice-'.$record->id.'.pdf'
-                        );
-                    }),
             ])
             ->toolbarActions([
                     BulkActionGroup::make([
